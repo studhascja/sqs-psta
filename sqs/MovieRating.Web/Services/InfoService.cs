@@ -15,18 +15,21 @@ public class InfoService : IInfoService
     public async Task<Movie?> GetMovieInfo(string title)
     {
         var client = new HttpClient();
-        var response = await client.GetStringAsync($"http://www.omdbapi.com/?apikey={_apiKey}&t={title}");
+        var response = await client.GetFromJsonAsync<MovieDto>($"http://www.omdbapi.com/?apikey={_apiKey}&t={title}");
 
-        Console.WriteLine(response);
+        return ChangeToMovieDto(response ?? throw new InvalidOperationException());
+    }
 
+    public Movie ChangeToMovieDto(MovieDto movieDto)
+    {
         return new Movie
         {
             Id = Guid.NewGuid(),
-            Title = null,
-            Director = null,
-            Duration = 0,
-            Genre = null,
-            Description = null
+            Title = movieDto.Title,
+            Director = movieDto.Director,
+            Duration = movieDto.Runtime,
+            Genre = movieDto.Genre,
+            Description = movieDto.Plot
         };
     }
 }
