@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using sqs.Models;
+using MovieRating.Web.Models;
 
-namespace sqs.Controllers;
+namespace MovieRating.Web.Controllers;
 
 public class HomeController : Controller
 {
