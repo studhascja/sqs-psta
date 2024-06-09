@@ -4,9 +4,9 @@ namespace MovieRating.Core.Interfaces;
 
 public interface IMovieService
 {
-    List<Movie> ListAllMovies();
+    Task<List<Movie>> ListAllMovies();
 
-    bool DoesMovieExist(string title);
+    Task<bool> DoesMovieExist(string title);
 
-    void AddMovie(Movie movie);
+    Task AddMovie(Movie movie);
 }

@@ -4,7 +4,7 @@ namespace MovieRating.Core.Interfaces;
 
 public interface IRatingService
 {
-    List<Rating> ListAllRatings(Movie movie);
+    Task<List<Rating>> ListAllRatings(string title);
     
-    void AddRating(Movie movie, Rating rating);
+    Task AddRating(Movie movie, Rating rating);
 }

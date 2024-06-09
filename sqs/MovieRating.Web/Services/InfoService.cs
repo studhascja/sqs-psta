@@ -14,7 +14,7 @@ public class InfoService : IInfoService
 
     public async Task<Movie?> GetMovieInfo(string title)
     {
-        var client = new HttpClient();
+        using var client = new HttpClient();
         var response = await client.GetFromJsonAsync<MovieDto>($"http://www.omdbapi.com/?apikey={_apiKey}&t={title}");
 
         return ChangeToMovieDto(response ?? throw new InvalidOperationException());
