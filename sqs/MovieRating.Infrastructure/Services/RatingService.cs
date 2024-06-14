@@ -16,7 +16,10 @@ public class RatingService : IRatingService
 
     public async Task<List<Rating>> ListAllRatings(string title)
     {
-        var movieList = await _movieContext.Movies.ToListAsync();
+        var movieList = await _movieContext.Movies
+            .Where(movie => movie.Title == title)
+            .Include(movie => movie.Ratings)
+            .ToListAsync();
 
         return GetRatings(movieList, title);
     }
@@ -31,12 +34,12 @@ public class RatingService : IRatingService
 
     private List<Rating> GetRatings(List<Movie> movieList, string title)
     {
-        if (movieList.Count > 1) throw new ToManyMatchingRatingsException("Got " + movieList.Count + " matching Ratings for movie " + title + ", but only 1 is allowed.");
+        if (movieList.Count > 1)
+            throw new ToManyMatchingRatingsException("Got " + movieList.Count + " matching Ratings for movie " + title +
+                                                     ", but only 1 is allowed.");
         if (movieList.Count == 0) throw new NoMatchingRatingException("No matching Rating found for movie " + title);
 
-        var movie = movieList.Find(movie => movie.Title == title);
-
-        return movie.Ratings;
+        return movieList[0].Ratings!;
     }
 
     private Movie AddRatingToMovie(Movie movie, Rating rating)
