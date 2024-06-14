@@ -1,4 +1,4 @@
-namespace sqs.Models;
+namespace MovieRating.Web.Models;
 
 public class ErrorViewModel
 {
