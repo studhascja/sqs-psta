@@ -5,17 +5,17 @@ namespace MovieRating.Core.Services;
 
 public class MovieServiceMock : IMovieService
 {
-    public List<Movie> ListAllMovies()
+    public Task<List<Movie>> ListAllMovies()
     {
         throw new NotImplementedException();
     }
 
-    public bool DoesMovieExist(string title)
+    public Task<bool> DoesMovieExist(string title)
     {
         throw new NotImplementedException();
     }
 
-    public void AddMovie(Movie movie)
+    public Task AddMovie(Movie movie)
     {
         throw new NotImplementedException();
     }

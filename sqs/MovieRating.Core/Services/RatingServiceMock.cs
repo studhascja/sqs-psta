@@ -5,12 +5,12 @@ namespace MovieRating.Core.Services;
 
 public class RatingServiceMock : IRatingService
 {
-    public List<Rating> ListAllRatings(Movie movie)
+    public Task<List<Rating>> ListAllRatings(string title)
     {
         throw new NotImplementedException();
     }
 
-    public void AddRating(Movie movie, Rating rating)
+    public Task AddRating(Movie movie, Rating rating)
     {
         throw new NotImplementedException();
     }
