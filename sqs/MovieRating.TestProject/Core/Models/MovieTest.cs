@@ -1,6 +1,6 @@
 ﻿using MovieRating.Core.Models;
 
-namespace MovieRating.TestProject;
+namespace MovieRating.TestProject.Core.Models;
 
 public class MovieTest
 {
@@ -10,7 +10,7 @@ public class MovieTest
     private const string Runtime = "120 min";
     private const string Genre = "Action";
     private const string Plot = "Große Echse";
-    private static List<Rating> TestRatingList= []; 
+    private static readonly List<Rating> TestRatingList= []; 
     
     private const string TestRatingNote = "spannend";
     private const string TestAuthor = "Max Mustermann";
