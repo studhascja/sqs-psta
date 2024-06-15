@@ -10,7 +10,7 @@ public class InfoServiceTest
     private const string Runtime = "120 min";
     private const string Genre = "Action";
     private const string Plot = "Große Echse";
-    
+
     private static readonly InfoService TestInfoService = new("test");
     private static readonly MovieDto TestDto = new()
     {
@@ -29,7 +29,7 @@ public class InfoServiceTest
         Assert.True(result.Title == Title);
         Assert.True(result.Director == Director);
         Assert.True(result.Genre == Genre);
-        Assert.True(result.Ratings == null);
+        Assert.True(result.Ratings.Count == 0);
         Assert.True(result.Description == Plot);
         Assert.True(result.Duration == Runtime);
     }

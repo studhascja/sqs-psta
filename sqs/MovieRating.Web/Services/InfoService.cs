@@ -30,7 +30,8 @@ public class InfoService : IInfoService
             Director = movieDto.Director,
             Duration = movieDto.Runtime,
             Genre = movieDto.Genre,
-            Description = movieDto.Plot
+            Description = movieDto.Plot,
+            Ratings = []
         };
     }
 }
