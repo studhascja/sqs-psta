@@ -5,32 +5,32 @@ namespace MovieRating.TestProject;
 
 public class InfoServiceTest
 {
-    private static string _title = "Godzilla";
-    private static string _director = "Max";
-    private static string _runtime = "120 min";
-    private static string _genre = "Action";
-    private static string _plot = "Große Echse";
+    private const string Title = "Godzilla";
+    private const string Director = "Max";
+    private const string Runtime = "120 min";
+    private const string Genre = "Action";
+    private const string Plot = "Große Echse";
     
-    private static InfoService _testInfoService = new InfoService();
-    private static MovieDto _testDto = new MovieDto
+    private static readonly InfoService TestInfoService = new("test");
+    private static readonly MovieDto TestDto = new()
     {
-        Title = _title,
-        Director = _director,
-        Runtime = _runtime,
-        Genre = _genre,
-        Plot = _plot
+        Title = Title,
+        Director = Director,
+        Runtime = Runtime,
+        Genre = Genre,
+        Plot = Plot
     };
     
     [Fact]
     public void ChangeToMovieDtoTest()
     {
-        Movie result = _testInfoService.ChangeToMovieDto(_testDto);
+        var result = TestInfoService.ChangeToMovieDto(TestDto);
         
-        Assert.True(result.Title == _title);
-        Assert.True(result.Director == _director);
-        Assert.True(result.Genre == _genre);
+        Assert.True(result.Title == Title);
+        Assert.True(result.Director == Director);
+        Assert.True(result.Genre == Genre);
         Assert.True(result.Ratings == null);
-        Assert.True(result.Description == _plot);
-        Assert.True(result.Duration == _runtime);
+        Assert.True(result.Description == Plot);
+        Assert.True(result.Duration == Runtime);
     }
 }
