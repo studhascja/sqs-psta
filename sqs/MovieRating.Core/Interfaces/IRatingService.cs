@@ -6,5 +6,5 @@ public interface IRatingService
 {
     Task<List<Rating>> ListAllRatings(string title);
     
-    Task AddRating(Movie movie, Rating rating);
+    Task AddRating(Rating rating);
 }

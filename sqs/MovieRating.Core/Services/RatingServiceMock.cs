@@ -10,7 +10,7 @@ public class RatingServiceMock : IRatingService
         throw new NotImplementedException();
     }
 
-    public Task AddRating(Movie movie, Rating rating)
+    public Task AddRating(Rating rating)
     {
         throw new NotImplementedException();
     }

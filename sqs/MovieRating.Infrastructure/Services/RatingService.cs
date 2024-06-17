@@ -7,7 +7,7 @@ namespace MovieRating.Infrastructure.Services;
 
 public class RatingService : IRatingService
 {
-    private MovieContext _movieContext;
+    private readonly MovieContext _movieContext;
 
     public RatingService(MovieContext movieContext)
     {
@@ -24,7 +24,7 @@ public class RatingService : IRatingService
         return GetRatings(movieList, title);
     }
 
-    public async Task AddRating(Movie movie, Rating rating)
+    public async Task AddRating(Rating rating)
     {
         _movieContext.Ratings.Add(rating);
 
