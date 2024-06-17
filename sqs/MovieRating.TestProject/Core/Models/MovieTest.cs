@@ -32,7 +32,8 @@ public class MovieTest
         Id = TestId,
         RatingNote = TestRatingNote,
         Author = TestAuthor,
-        Evaluation = TestEvaluation
+        Evaluation = TestEvaluation,
+        Movie = TestMovie
     };
     
     [Fact]

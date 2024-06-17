@@ -9,4 +9,5 @@ public class Rating
     public required string Author { get; set; }
 
     public required int Evaluation { get; set; }
+    public required Movie Movie { get; set; }
  }

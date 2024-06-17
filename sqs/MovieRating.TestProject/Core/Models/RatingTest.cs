@@ -14,7 +14,8 @@ public class RatingTest
         Id = TestId,
         RatingNote = TestRatingNote,
         Author = TestAuthor,
-        Evaluation = TestEvaluation
+        Evaluation = TestEvaluation,
+        Movie = null!
     };
 
     [Fact]
