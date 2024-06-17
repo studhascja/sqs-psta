@@ -2,11 +2,6 @@
 
 public class NoMatchingRatingException : Exception
 {
-    public NoMatchingRatingException()
-    {
-        
-    }
-    
     public NoMatchingRatingException(string message)
         : base(message)
     {

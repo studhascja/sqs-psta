@@ -2,13 +2,8 @@
 
 public class ToManyMatchingRatingsException : Exception
 {
-    public ToManyMatchingRatingsException()
-    {
-        
-    }
-    
     public ToManyMatchingRatingsException(string message)
-    : base(message)
+        : base(message)
     {
     }
 }
