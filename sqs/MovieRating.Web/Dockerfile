@@ -1,20 +1,24 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER $APP_UID
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080
+EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["sqs/sqs.csproj", "sqs/"]
-RUN dotnet restore "sqs/sqs.csproj"
-COPY . .
-WORKDIR "/src/sqs"
-RUN dotnet build "sqs.csproj" -c Release -o /app/build
+COPY ./MovieRating.Core ./MovieRating.Core
+COPY ./MovieRating.Infrastructure ./MovieRating.Infrastructure
+COPY ./MovieRating.Web ./MovieRating.Web
+COPY ./MovieRating.sln ./MovieRating.sln
+WORKDIR "/src/MovieRating.Web"
+RUN dotnet build "MovieRating.Web.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "sqs.csproj" -c Release -o /app/publish /p:UseAppHost=false
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "MovieRating.Web.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "sqs.dll"]
+ENTRYPOINT ["dotnet", "MovieRating.Web.dll"]

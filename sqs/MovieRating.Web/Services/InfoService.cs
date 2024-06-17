@@ -7,17 +7,16 @@ namespace MovieRating.Web.Services;
 public class InfoService : IInfoService
 {
     private readonly string? _apiKey;
-    private static readonly string EnvironmentNameApiKey = "API_KEY";
-    private readonly string? _environmentValueApiKey = Environment.GetEnvironmentVariable(EnvironmentNameApiKey);
-    public InfoService()
+    
+    public InfoService(string apiKey)
     {
-        _apiKey = _environmentValueApiKey ?? throw new EnvironmentVariableNotSetException("API-Key not set correctly");
+        _apiKey = apiKey;
     }
 
     public async Task<Movie?> GetMovieInfo(string title)
     {
         using var client = new HttpClient();
-        var response = await client.GetFromJsonAsync<MovieDto>($"http://www.omdbapi.com/?apikey={_apiKey}&t={title}");
+        var response = await client.GetFromJsonAsync<MovieDto>($"https://www.omdbapi.com/?apikey={_apiKey}&t={title}");
 
         return ChangeToMovieDto(response ?? throw new NoSuchMovieException("Movie " + title + "does not exist."));
     }
@@ -31,7 +30,8 @@ public class InfoService : IInfoService
             Director = movieDto.Director,
             Duration = movieDto.Runtime,
             Genre = movieDto.Genre,
-            Description = movieDto.Plot
+            Description = movieDto.Plot,
+            Ratings = []
         };
     }
 }

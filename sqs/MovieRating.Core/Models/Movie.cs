@@ -14,6 +14,5 @@ public class Movie
 
     public required string Description { get; set; }
 
-    public List<Rating>? Ratings { get; set; }
-    
+    public required List<Rating> Ratings { get; set; }
 }
