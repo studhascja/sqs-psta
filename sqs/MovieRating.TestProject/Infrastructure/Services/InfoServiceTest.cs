@@ -1,7 +1,7 @@
 ﻿using MovieRating.Core.Models;
 using MovieRating.Web.Services;
 
-namespace MovieRating.TestProject;
+namespace MovieRating.TestProject.Infrastructure.Services;
 
 public class InfoServiceTest
 {
