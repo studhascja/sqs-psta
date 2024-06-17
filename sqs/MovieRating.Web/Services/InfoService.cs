@@ -16,7 +16,7 @@ public class InfoService : IInfoService
     public async Task<Movie?> GetMovieInfo(string title)
     {
         using var client = new HttpClient();
-        var response = await client.GetFromJsonAsync<MovieDto>($"http://www.omdbapi.com/?apikey={_apiKey}&t={title}");
+        var response = await client.GetFromJsonAsync<MovieDto>($"https://www.omdbapi.com/?apikey={_apiKey}&t={title}");
 
         return ChangeToMovieDto(response ?? throw new NoSuchMovieException("Movie " + title + "does not exist."));
     }

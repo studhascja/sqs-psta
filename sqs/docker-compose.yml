@@ -1,0 +1,15 @@
+services:
+  movierating:
+    image: movierating
+    build:
+      context: .
+      dockerfile: MovieRating.Web/Dockerfile
+   # depends_on:
+    ports:
+      - 8080:8080
+      - 8081:8081
+    environment:
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_SERVER: ${DB_SERVER}
+      DB_USER: ${DB_USER}
+      API_KEY: ${API_KEY}
