@@ -1,7 +1,7 @@
 ﻿using MovieRating.Core.Models;
 using MovieRating.Web.Services;
 
-namespace MovieRating.TestProject;
+namespace MovieRating.TestProject.Infrastructure.Services;
 
 public class InfoServiceTest
 {
@@ -26,11 +26,11 @@ public class InfoServiceTest
     {
         var result = TestInfoService.ChangeToMovieDto(TestDto);
         
-        Assert.True(result.Title == Title);
-        Assert.True(result.Director == Director);
-        Assert.True(result.Genre == Genre);
-        Assert.True(result.Ratings.Count == 0);
-        Assert.True(result.Description == Plot);
-        Assert.True(result.Duration == Runtime);
+        Assert.Equal(Title, result.Title);
+        Assert.Equal(Director, result.Director);
+        Assert.Equal(Genre, result.Genre);
+        Assert.Empty(result.Ratings);
+        Assert.Equal(Plot, result.Description);
+        Assert.Equal(Runtime, result.Duration);
     }
 }

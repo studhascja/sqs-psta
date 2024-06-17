@@ -32,20 +32,21 @@ public class MovieTest
         Id = TestId,
         RatingNote = TestRatingNote,
         Author = TestAuthor,
-        Evaluation = TestEvaluation
+        Evaluation = TestEvaluation,
+        Movie = TestMovie
     };
     
     [Fact]
     public void MovieIdTest()
     {
-        Assert.True(TestMovie.Id == TestId);
+        Assert.Equal(TestId, TestMovie.Id);
     }
 
     [Fact]
     public void MovieRatingTest()
     {
-        Assert.True(TestMovie.Ratings == TestRatingList);
+        Assert.Equal(TestRatingList, TestMovie.Ratings);
         TestMovie.Ratings.Add(TestRating);
-        Assert.True(TestMovie.Ratings[0] == TestRating);
+        Assert.Equal(TestRating, TestMovie.Ratings[0]);
     }
 }

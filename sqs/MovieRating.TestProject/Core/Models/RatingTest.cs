@@ -8,21 +8,23 @@ public class RatingTest
     private const string TestRatingNote = "spannend";
     private const string TestAuthor = "Max Mustermann";
     private const int TestEvaluation = 9;
-    
+
     private static readonly Rating TestRating = new Rating
     {
         Id = TestId,
         RatingNote = TestRatingNote,
         Author = TestAuthor,
-        Evaluation = TestEvaluation
+        Evaluation = TestEvaluation,
+        Movie = null!
     };
 
     [Fact]
     public void GetRatingTest()
     {
-        Assert.True(TestRating.Id.Equals(TestId));
-        Assert.True(TestRating.RatingNote == TestRatingNote);
-        Assert.True(TestRating.Author == TestAuthor);
-        Assert.True(TestRating.Evaluation == TestEvaluation);
+        Assert.Equal(TestId, TestRating.Id);
+        Assert.Equal(TestId, TestRating.Id);
+        Assert.Equal(TestRatingNote, TestRating.RatingNote);
+        Assert.Equal(TestAuthor, TestRating.Author);
+        Assert.Equal(TestEvaluation, TestRating.Evaluation);
     }
 }

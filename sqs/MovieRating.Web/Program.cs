@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using MovieRating.Core.Exceptions;
 using MovieRating.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +9,26 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<MovieContext>();
+const string environmentNameApiKey = "API_KEY";
+var environmentValueApiKey = Environment.GetEnvironmentVariable(environmentNameApiKey);
+if (environmentValueApiKey == null) throw new EnvironmentVariableNotSetException("API-Key not set correctly");
+
+const string environmentNameDbUser = "DB_USER";
+const string environmentNameDbPassword = "DB_PASSWORD";
+const string environmentNameDbServer = "DB_SERVER";
+
+var environmentValueDbUser = Environment.GetEnvironmentVariable(environmentNameDbUser);
+var environmentValueDbPassword = Environment.GetEnvironmentVariable(environmentNameDbPassword);
+var environmentValueDbServer = Environment.GetEnvironmentVariable(environmentNameDbServer);
+if (environmentValueDbServer == null || environmentValueDbPassword == null || environmentValueDbUser == null)
+{
+    throw new EnvironmentVariableNotSetException("DB-Environment-Variables not set correctly");
+}
+
+builder.Services.AddDbContext<MovieContext>(options =>
+{
+    options.UseSqlServer($"Server={environmentValueDbServer};Database=Master;User Id={environmentValueDbUser};Password={environmentValueDbPassword};TrustServerCertificate=True;");
+});
 
 var app = builder.Build();
 
@@ -35,4 +56,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.Run();
+await app.RunAsync();
+
+public partial class Program;

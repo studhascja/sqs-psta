@@ -7,7 +7,7 @@ namespace MovieRating.Infrastructure.Services;
 
 public class RatingService : IRatingService
 {
-    private MovieContext _movieContext;
+    private readonly MovieContext _movieContext;
 
     public RatingService(MovieContext movieContext)
     {
@@ -24,10 +24,9 @@ public class RatingService : IRatingService
         return GetRatings(movieList, title);
     }
 
-    public async Task AddRating(Movie movie, Rating rating)
+    public async Task AddRating(Rating rating)
     {
         _movieContext.Ratings.Add(rating);
-        _movieContext.Movies.Update(AddRatingToMovie(movie, rating));
 
         await _movieContext.SaveChangesAsync();
     }
@@ -39,19 +38,6 @@ public class RatingService : IRatingService
                                                      ", but only 1 is allowed.");
         if (movieList.Count == 0) throw new NoMatchingRatingException("No matching Rating found for movie " + title);
 
-        return movieList[0].Ratings!;
-    }
-
-    private Movie AddRatingToMovie(Movie movie, Rating rating)
-    {
-        if (movie.Ratings == null)
-        {
-            movie.Ratings = new List<Rating>();
-            movie.Ratings.Add(rating);
-            return movie;
-        }
-
-        movie.Ratings.Add(rating);
-        return movie;
+        return movieList[0].Ratings.ToList();
     }
 }
