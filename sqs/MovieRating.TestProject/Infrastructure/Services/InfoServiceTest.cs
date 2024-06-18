@@ -1,5 +1,5 @@
 ﻿using MovieRating.Core.Models;
-using MovieRating.Web.Services;
+using MovieRating.Infrastructure.Services;
 
 namespace MovieRating.TestProject.Infrastructure.Services;
 

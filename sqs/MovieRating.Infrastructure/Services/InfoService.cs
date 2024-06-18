@@ -1,8 +1,9 @@
-﻿using MovieRating.Core.Exceptions;
+﻿using System.Net.Http.Json;
+using MovieRating.Core.Exceptions;
 using MovieRating.Core.Interfaces;
 using MovieRating.Core.Models;
 
-namespace MovieRating.Web.Services;
+namespace MovieRating.Infrastructure.Services;
 
 public class InfoService : IInfoService
 {
