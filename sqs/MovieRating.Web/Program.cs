@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using MovieRating.Core.Exceptions;
+using MovieRating.Core.Interfaces;
 using MovieRating.Infrastructure;
+using MovieRating.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,10 @@ builder.Services.AddDbContext<MovieContext>(options =>
 {
     options.UseSqlServer($"Server={environmentValueDbServer};Database=Master;User Id={environmentValueDbUser};Password={environmentValueDbPassword};TrustServerCertificate=True;");
 });
+
+builder.Services.AddSingleton<IInfoService>(new InfoService(environmentValueApiKey));
+builder.Services.AddScoped<IRatingService, RatingService>();
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 var app = builder.Build();
 
