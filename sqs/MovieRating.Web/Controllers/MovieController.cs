@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MovieRating.Core.Exceptions;
 using MovieRating.Core.Interfaces;
 using MovieRating.Core.Models;
 using MovieRating.Web.Models;
@@ -27,15 +28,16 @@ public class MovieController : Controller
         }
         else
         {
-            var apiResult = await _infoService.GetMovieInfo(title);
-            if (apiResult == null)
+            try
+            {
+                var apiResult = await _infoService.GetMovieInfo(title);
+                await _movieService.AddMovie(apiResult);
+                result = apiResult;
+            }
+            catch(NoSuchMovieException e)
             {
                 return NotFound();
             }
-            
-            await _movieService.AddMovie(apiResult);
-
-            result = apiResult;
         }
         
         var viewModel = new MovieDetailsViewModel
