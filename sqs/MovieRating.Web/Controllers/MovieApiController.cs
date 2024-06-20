@@ -18,6 +18,7 @@ public class MovieApiController : ControllerBase
     }
 
     [HttpGet]
+    [Route("{title}")]
     public async Task<IActionResult> GetMovieByName(string title)
     {
         if (await _movieService.DoesMovieExist(title))
@@ -32,9 +33,9 @@ public class MovieApiController : ControllerBase
             await _movieService.AddMovie(movie);
             return Ok(movie);
         }
-        catch (NoSuchMovieException e)
+        catch (NoSuchMovieException)
         {
-            return NotFound(title);
+            return NotFound();
         }
     }
 
