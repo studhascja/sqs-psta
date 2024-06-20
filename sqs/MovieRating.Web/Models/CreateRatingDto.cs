@@ -2,6 +2,8 @@
 
 public class CreateRatingDto
 {
-    public string Author { get; set; }
-    public string Rating { get; set; }
+    public required string Author { get; set; }
+    public required string Rating { get; set; }
+
+    public required int Evaluation { get; set; }
 }

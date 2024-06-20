@@ -43,7 +43,7 @@ public class MovieApiController : ControllerBase
     public async Task<IActionResult> ListAll()
     {
         var movieList = await _movieService.ListAllMovies();
-        if (movieList.Count == 0) return NotFound(movieList);
+        if (movieList.Count == 0) return NotFound();
         return Ok(movieList);
     }
 }
