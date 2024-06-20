@@ -4,5 +4,5 @@ namespace MovieRating.Core.Interfaces;
 
 public interface IInfoService
 {
-    Task<Movie?> GetMovieInfo(string title);
+    Task<Movie> GetMovieInfo(string title);
 }

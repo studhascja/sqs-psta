@@ -1,8 +1,20 @@
-﻿@{
+﻿@model MovieListViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">My movies</h1>
+    <form action="/Movie" method="get">
+        <input type="text" id="title" name="title" placeholder="Movie Title" required>
+        <input type="submit" value="Find">
+    </form>
+    
+    <hr>
+    <ul>
+        @foreach (var movie in Model.SavedMovies)
+        {
+            <li><a href="Movie?title=@movie.Title">@movie.Title</a></li>
+        }
+    </ul>
 </div>

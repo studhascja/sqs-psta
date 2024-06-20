@@ -6,7 +6,7 @@ namespace MovieRating.Infrastructure.Services;
 
 public class MovieService : IMovieService
 {
-    private MovieContext _movieContext;
+    private readonly MovieContext _movieContext;
 
     public MovieService(MovieContext movieContext)
     {
@@ -18,6 +18,13 @@ public class MovieService : IMovieService
         return await _movieContext.Movies
             .OrderBy(movie => movie.Title)
             .ToListAsync();
+    }
+
+    public async Task<Movie> GetMovieByTitle(string title)
+    {
+        return await _movieContext.Movies
+            .Include(movie => movie.Ratings)
+            .FirstAsync(movie => movie.Title == title);
     }
 
     public async Task<bool> DoesMovieExist(string title)

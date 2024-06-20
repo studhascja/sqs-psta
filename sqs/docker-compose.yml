@@ -4,7 +4,8 @@ services:
     build:
       context: .
       dockerfile: MovieRating.Web/Dockerfile
-   # depends_on:
+    depends_on:
+      - mssql
     ports:
       - 8080:8080
       - 8081:8081
@@ -13,3 +14,9 @@ services:
       DB_SERVER: ${DB_SERVER}
       DB_USER: ${DB_USER}
       API_KEY: ${API_KEY}
+  mssql:
+    image: mcr.microsoft.com/mssql/server:latest
+    hostname: mssql
+    environment:
+      MSSQL_SA_PASSWORD: ${DB_PASSWORD}
+      ACCEPT_EULA: "y"

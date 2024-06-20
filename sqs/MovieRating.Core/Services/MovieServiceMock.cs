@@ -10,6 +10,11 @@ public class MovieServiceMock : IMovieService
         throw new NotImplementedException();
     }
 
+    public Task<Movie> GetMovieByTitle(string title)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<bool> DoesMovieExist(string title)
     {
         throw new NotImplementedException();

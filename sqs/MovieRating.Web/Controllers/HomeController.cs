@@ -1,19 +1,28 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using MovieRating.Core.Interfaces;
 using MovieRating.Web.Models;
 
 namespace MovieRating.Web.Controllers;
 
 public class HomeController : Controller
 {
-    public IActionResult Index()
+    private readonly IMovieService _movieService;
+
+    public HomeController(IMovieService movieService)
     {
-        return View();
+        _movieService = movieService;
     }
 
-    public IActionResult Privacy()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var movieList = await _movieService.ListAllMovies();
+        var viewModel = new MovieListViewModel
+        {
+            SavedMovies = movieList
+        };
+        
+        return View(viewModel);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
