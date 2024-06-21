@@ -41,6 +41,8 @@ jobs:
     - name: Build
       run: dotnet build --no-restore sqs/MovieRating.sln
     - name: Test
+      env:
+        API_KEY: ${{ secrets.API_KEY }}
       run: dotnet test --no-build --verbosity normal sqs/MovieRating.sln
     - name: Coverage
       run: dotnet-coverage collect "dotnet test sqs/MovieRating.sln" -f xml -o "coverage.xml"
