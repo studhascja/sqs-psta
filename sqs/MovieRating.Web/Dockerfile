@@ -12,11 +12,11 @@ COPY ./MovieRating.Infrastructure ./MovieRating.Infrastructure
 COPY ./MovieRating.Web ./MovieRating.Web
 COPY ./MovieRating.sln ./MovieRating.sln
 WORKDIR "/src/MovieRating.Web"
-RUN dotnet build "MovieRating.Web.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "MovieRating.Web.csproj" -c $"BUILD_CONFIGURATION" -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "MovieRating.Web.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "MovieRating.Web.csproj" -c $"BUILD_CONFIGURATION" -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

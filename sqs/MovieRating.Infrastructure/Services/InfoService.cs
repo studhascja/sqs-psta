@@ -49,7 +49,7 @@ public class InfoService : IInfoService
     /// </summary>
     /// <param name="movieDto">The MovieDto object to convert.</param>
     /// <returns>A new instance of <see cref="Movie"/> based on the provided MovieDto.</returns>
-    public Movie ChangeToMovieDto(MovieDto movieDto)
+    public static Movie ChangeToMovieDto(MovieDto movieDto)
     {
         return new Movie
         {

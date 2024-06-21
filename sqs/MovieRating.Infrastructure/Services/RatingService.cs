@@ -55,7 +55,7 @@ public class RatingService : IRatingService
     /// <returns>Returns a list of Rating objects.</returns>
     /// <exception cref="ToManyMatchingRatingsException">Thrown when more than one matching movie is found for the specified movie title.</exception>
     /// <exception cref="NoMatchingRatingException">Thrown when no matching movie is found for the specified movie title.</exception>
-    private List<Rating> GetRatings(List<Movie> movieList, string title)
+    private static List<Rating> GetRatings(List<Movie> movieList, string title)
     {
         if (movieList.Count > 1)
             throw new ToManyMatchingRatingsException("Got " + movieList.Count + " matching Ratings for movie " + title +

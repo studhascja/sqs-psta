@@ -10,8 +10,6 @@ public class InfoServiceTest
     private const string Runtime = "120 min";
     private const string Genre = "Action";
     private const string Plot = "Große Echse";
-
-    private static readonly InfoService TestInfoService = new("test");
     private static readonly MovieDto TestDto = new()
     {
         Title = Title,
@@ -24,7 +22,7 @@ public class InfoServiceTest
     [Fact]
     public void ChangeToMovieDtoTest()
     {
-        var result = TestInfoService.ChangeToMovieDto(TestDto);
+        var result = InfoService.ChangeToMovieDto(TestDto);
         
         Assert.Equal(Title, result.Title);
         Assert.Equal(Director, result.Director);

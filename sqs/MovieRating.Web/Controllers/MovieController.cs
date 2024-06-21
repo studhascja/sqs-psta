@@ -34,7 +34,7 @@ public class MovieController : Controller
                 await _movieService.AddMovie(apiResult);
                 result = apiResult;
             }
-            catch(NoSuchMovieException e)
+            catch(NoSuchMovieException)
             {
                 return NotFound();
             }
@@ -45,6 +45,12 @@ public class MovieController : Controller
             SearchResult = result
         };
         
-        return View(viewModel);
+        if (ModelState.IsValid)
+        {
+            return View(viewModel);
+        }
+
+        return NotFound();
+
     }
 }

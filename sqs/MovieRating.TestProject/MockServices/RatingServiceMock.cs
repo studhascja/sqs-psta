@@ -40,7 +40,7 @@ public class RatingServiceMock : IRatingService
         _movieList.Add(movie);
     }
 
-    private List<Rating> GetRatings(List<Movie> movieList, string title)
+    private static List<Rating> GetRatings(List<Movie> movieList, string title)
     {
         if (movieList.Count > 1)
             throw new ToManyMatchingRatingsException("Got " + movieList.Count + " matching Ratings for movie " + title +
