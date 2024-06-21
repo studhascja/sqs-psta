@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieRating.TestProject", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieRating.IntegrationTests", "MovieRating.IntegrationTests\MovieRating.IntegrationTests.csproj", "{4767F494-AD03-4879-80AE-7ACED2046C64}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieRating.LoadTests", "MovieRating.LoadTests\MovieRating.LoadTests.csproj", "{7BD0F34C-8699-47C6-B7E9-5044FD9E356C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{4767F494-AD03-4879-80AE-7ACED2046C64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4767F494-AD03-4879-80AE-7ACED2046C64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4767F494-AD03-4879-80AE-7ACED2046C64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BD0F34C-8699-47C6-B7E9-5044FD9E356C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BD0F34C-8699-47C6-B7E9-5044FD9E356C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BD0F34C-8699-47C6-B7E9-5044FD9E356C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BD0F34C-8699-47C6-B7E9-5044FD9E356C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
