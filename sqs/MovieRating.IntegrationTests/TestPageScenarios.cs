@@ -152,7 +152,7 @@ public partial class TestPageScenarios : IClassFixture<TestingWebAppFactory>
         var client = _factory.CreateClient();
         
         //Act
-        var response = await client.GetAsync("/Movie?title=Godzilla");
+        var response = await client.GetAsync("/Movie?title=unknownMovie");
         
         //Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
