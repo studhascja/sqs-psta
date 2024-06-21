@@ -34,7 +34,7 @@ public class RatingController : ControllerBase
             Id = Guid.NewGuid(),
             RatingNote = request.Rating,
             Author = request.Author,
-            Evaluation = 0,
+            Evaluation = request.Evaluation,
             Movie = movie
         };
         await _ratingService.AddRating(rating);

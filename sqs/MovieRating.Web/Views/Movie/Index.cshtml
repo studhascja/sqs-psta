@@ -18,13 +18,14 @@
     <ul>
         @foreach (var rating in Model.SearchResult.Ratings)
         {
-            <li>@rating.RatingNote</li>
+            <li><b>Review:</b> @rating.RatingNote  <b>Evaluation:</b> @rating.Evaluation</li>
         }
     </ul>
 
     <form action="/Rating/@Model.SearchResult.Title" method="post">
-        <input type="text" id="author" name="author" placeholder="Your name" required>
-        <input type="text" id="rating" name="rating" placeholder="Your review" required>
+        <input type="text" id="author" name="author" placeholder="Your name" maxlength="20" required>
+        <input type="text" id="rating" name="rating" placeholder="Your review" maxlength="50" required>
+        <input type="number" id="evaluation" name="evaluation" placeholder="Your evaluation" min="1" max="10" required>
         <input type="submit" value="Add review">
     </form>
 </div>

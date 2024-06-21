@@ -49,6 +49,8 @@ public class MovieServiceTest
         var check1 = await movieService.DoesMovieExist(movie1.Title);
 
         var check2 = await movieService.DoesMovieExist("unknown");
+
+        var testMovie = await movieService.GetMovieByTitle("Test Title 1");
         
         //Assert
         var singleReview = Assert.Single(afterMovie1);
@@ -60,6 +62,7 @@ public class MovieServiceTest
         
         Assert.True(check1);
         Assert.False(check2);
-
+        
+        Assert.Equal(movie1, testMovie);
     }
 }

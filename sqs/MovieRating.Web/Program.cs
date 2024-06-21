@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using MovieRating.Core.Exceptions;
 using MovieRating.Core.Interfaces;
 using MovieRating.Infrastructure;
 using MovieRating.Infrastructure.Services;
@@ -11,21 +10,18 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var configService = new ConfigService();
+
 const string environmentNameApiKey = "API_KEY";
-var environmentValueApiKey = Environment.GetEnvironmentVariable(environmentNameApiKey);
-if (environmentValueApiKey == null) throw new EnvironmentVariableNotSetException("API-Key not set correctly");
+var environmentValueApiKey = configService.GetApiValue(environmentNameApiKey);
 
 const string environmentNameDbUser = "DB_USER";
 const string environmentNameDbPassword = "DB_PASSWORD";
 const string environmentNameDbServer = "DB_SERVER";
 
-var environmentValueDbUser = Environment.GetEnvironmentVariable(environmentNameDbUser);
-var environmentValueDbPassword = Environment.GetEnvironmentVariable(environmentNameDbPassword);
-var environmentValueDbServer = Environment.GetEnvironmentVariable(environmentNameDbServer);
-if (environmentValueDbServer == null || environmentValueDbPassword == null || environmentValueDbUser == null)
-{
-    throw new EnvironmentVariableNotSetException("DB-Environment-Variables not set correctly");
-}
+var environmentValueDbUser = configService.GetDbValue(environmentNameDbUser);
+var environmentValueDbPassword = configService.GetDbValue(environmentNameDbPassword);
+var environmentValueDbServer = configService.GetDbValue(environmentNameDbServer);
 
 builder.Services.AddDbContext<MovieContext>(options =>
 {
