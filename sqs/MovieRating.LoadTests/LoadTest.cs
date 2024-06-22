@@ -25,9 +25,9 @@ public class LoadTest : IClassFixture<TestingWebAppFactory>
             })
             .WithoutWarmUp()
             .WithLoadSimulations(
-                Simulation.Inject(rate: 10,
+                Simulation.Inject(rate: 50,
                     interval: TimeSpan.FromSeconds(1),
-                    during: TimeSpan.FromSeconds(5))
+                    during: TimeSpan.FromSeconds(10))
             );
 
         // Act
@@ -57,9 +57,9 @@ public class LoadTest : IClassFixture<TestingWebAppFactory>
             })
             .WithoutWarmUp()
             .WithLoadSimulations(
-                Simulation.Inject(rate: 10,
+                Simulation.Inject(rate: 50,
                     interval: TimeSpan.FromSeconds(1),
-                    during: TimeSpan.FromSeconds(5))
+                    during: TimeSpan.FromSeconds(10))
             );
 
         // Act
