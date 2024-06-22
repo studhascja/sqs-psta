@@ -20,7 +20,8 @@ public class LoadTest : IClassFixture<TestingWebAppFactory>
         var client = _factory.CreateClient();
         var scenarioMovie = Scenario.Create("Movie_Workload", async _ =>
             {
-                var response = await client.GetAsync("api/v1/Movie/Godzilla");
+                var response = await client.GetAsync("/api/v1/Movie/Godzilla");
+                Console.WriteLine(response.StatusCode + " " + response.ReasonPhrase);
                 return response.IsSuccessStatusCode ? Response.Ok() : Response.Fail();
             })
             .WithoutWarmUp()
