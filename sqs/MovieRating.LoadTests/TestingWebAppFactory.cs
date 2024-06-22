@@ -7,10 +7,14 @@ using MovieRating.Infrastructure.Services;
 
 namespace MovieRating.LoadTests;
 
+/// <summary>
+/// Class <c>TestingWebAppFactory</c> provides a custom web application.
+/// </summary>
 public class TestingWebAppFactory : WebApplicationFactory<Program>
 {
     private const string EnvironmentNameApiKey = "API_KEY";
     private readonly ConfigService _configService = new();
+
     public TestingWebAppFactory()
     {
         Environment.SetEnvironmentVariable("DB_USER", "test");
@@ -18,7 +22,11 @@ public class TestingWebAppFactory : WebApplicationFactory<Program>
         Environment.SetEnvironmentVariable("DB_SERVER", "test");
         Environment.SetEnvironmentVariable("API_KEY", _configService.GetApiValue(EnvironmentNameApiKey));
     }
-    
+
+    /// <summary>
+    /// Configures the web host builder for load testing.
+    /// </summary>
+    /// <param name="builder">The web host builder instance.</param>
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.ConfigureServices(services =>

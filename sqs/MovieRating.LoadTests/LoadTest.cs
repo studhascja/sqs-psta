@@ -4,15 +4,25 @@ using NBomber.CSharp;
 
 namespace MovieRating.LoadTests;
 
+/// <summary>
+/// Load tests for API-Controller.
+/// </summary>
 public class LoadTest : IClassFixture<TestingWebAppFactory>
 {
     private readonly TestingWebAppFactory _factory;
 
+    /// <summary>
+    /// Initializes a new instance of the <c>LoadTest</c> class with the specified TestingWebAppFactory factory.
+    /// </summary>
+    /// <param name="factory">An instance of <c>TestingWebAppFactory</c> to create a Client with which the Program can be tested.</param>
     public LoadTest(TestingWebAppFactory factory)
     {
         _factory = factory;
     }
 
+    /// <summary>
+    /// Load tests for API-Controller Get Movie.
+    /// </summary>
     [Fact]
     public void InjectMovie()
     {
@@ -25,8 +35,8 @@ public class LoadTest : IClassFixture<TestingWebAppFactory>
             })
             .WithoutWarmUp()
             .WithLoadSimulations(
-                Simulation.Inject(rate: 50,
-                    interval: TimeSpan.FromSeconds(1),
+                Simulation.Inject(rate: 50, // 50 Requests per second
+                    interval: TimeSpan.FromSeconds(1), // for 10 seconds
                     during: TimeSpan.FromSeconds(10))
             );
 
@@ -38,10 +48,13 @@ public class LoadTest : IClassFixture<TestingWebAppFactory>
         var movieStats = result.ScenarioStats.Get("Movie_Workload");
 
         // Assert
-        Assert.True(movieStats.Ok.Latency.MeanMs < 500);
-        Assert.Equal(0, movieStats.Fail.Request.Count);
+        Assert.True(movieStats.Ok.Latency.MeanMs < 500); // Mean Latency has to be under 500 ms
+        Assert.Equal(0, movieStats.Fail.Request.Count); // No Request may fail
     }
 
+    /// <summary>
+    /// Load tests for API-Controller Get All-Movies.
+    /// </summary>
     [Fact]
     public async Task InjectMovieList()
     {
@@ -57,8 +70,8 @@ public class LoadTest : IClassFixture<TestingWebAppFactory>
             })
             .WithoutWarmUp()
             .WithLoadSimulations(
-                Simulation.Inject(rate: 50,
-                    interval: TimeSpan.FromSeconds(1),
+                Simulation.Inject(rate: 50, // 50 Requests per second
+                    interval: TimeSpan.FromSeconds(1), // for 10 seconds
                     during: TimeSpan.FromSeconds(10))
             );
 
@@ -70,7 +83,7 @@ public class LoadTest : IClassFixture<TestingWebAppFactory>
         var movieListStats = result.ScenarioStats.Get("Movie_List");
 
         // Assert
-        Assert.True(movieListStats.Ok.Latency.MeanMs < 500);
-        Assert.Equal(0, movieListStats.Fail.Request.Count);
+        Assert.True(movieListStats.Ok.Latency.MeanMs < 500); // Mean Latency has to be under 500 ms
+        Assert.Equal(0, movieListStats.Fail.Request.Count); // No Request may fail
     }
 }
