@@ -10,6 +10,8 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore ./sqs/MovieRating.sln
       - name: Run Snyk to check for vulnerabilities
-        run: snyk test --all-projects
+        uses: snyk/actions/dotnet@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --all-projects
