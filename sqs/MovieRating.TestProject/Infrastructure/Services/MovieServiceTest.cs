@@ -5,11 +5,18 @@ using MovieRating.Infrastructure.Services;
 
 namespace MovieRating.TestProject.Infrastructure.Services;
 
+/// <summary>
+/// Class <c>MovieServiceTest</c> contains tests to ensure the MovieService behave as expected.
+/// </summary>
 public class MovieServiceTest
 {
+    /// <summary>
+    /// Test all functions of the MovieService
+    /// </summary>
     [Fact]
     public async Task ListAllMoviesTest()
     {
+        // Prep
         var dbContextOptions = new DbContextOptionsBuilder()
             .UseInMemoryDatabase(nameof(ListAllMoviesTest))
             .Options;
@@ -41,16 +48,16 @@ public class MovieServiceTest
         
         // Act
         await movieService.AddMovie(movie1);
-        var afterMovie1 = await movieService.ListAllMovies();
+        var afterMovie1 = await movieService.ListAllMovies();  // should contain one Movie
 
         await movieService.AddMovie(movie2);
-        var afterMovie2 = await movieService.ListAllMovies();
+        var afterMovie2 = await movieService.ListAllMovies(); // should contain two Movies
 
-        var check1 = await movieService.DoesMovieExist(movie1.Title);
+        var check1 = await movieService.DoesMovieExist(movie1.Title); // should be true
 
-        var check2 = await movieService.DoesMovieExist("unknown");
+        var check2 = await movieService.DoesMovieExist("unknown"); // should be false
 
-        var testMovie = await movieService.GetMovieByTitle("Test Title 1");
+        var testMovie = await movieService.GetMovieByTitle("Test Title 1"); // should return the Movie Test Title 1
         
         //Assert
         var singleReview = Assert.Single(afterMovie1);

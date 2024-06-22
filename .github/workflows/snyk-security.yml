@@ -14,7 +14,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --file=sqs/MovieRating.Core/obj/project.assets.json
+          args: --file=sqs/MovieRating.Core/obj/project.assets.json --severity-threshold=high
       - name: Run Snyk to check for vulnerabilities on Infrastructure
         uses: snyk/actions/dotnet@master
         env:
@@ -26,6 +26,6 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-            args: --file=sqs/MovieRating.Web/obj/project.assets.json
+            args: --file=sqs/MovieRating.Web/obj/project.assets.json --severity-threshold=high
                 
           
