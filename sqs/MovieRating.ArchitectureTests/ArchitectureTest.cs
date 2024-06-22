@@ -4,12 +4,19 @@ using NetArchTest.Rules;
 
 namespace MovieRating.ArchitectureTests;
 
+/// <summary>
+/// Class <c>ArchitectureTest</c> contains tests to ensure the architectural integrity of the application.
+/// </summary>
 public class ArchitectureTest
 {
+    // Parts of the Architecture
     private const string Core = "MovieRating.Core";
     private const string Infrastructure = "MovieRating.Infrastructure";
     private const string Web = "MovieRating.Web";
 
+    /// <summary>
+    /// Tests dependencies of Architectureparts
+    /// </summary>
     [Fact]
     public void TestDependencys()
     {
@@ -34,7 +41,10 @@ public class ArchitectureTest
         Assert.True(coreDependencyResult.IsSuccessful);
         Assert.True(infrastructureDependencyResult.IsSuccessful);
     }
-
+    
+    /// <summary>
+    /// Tests class type locations to ensure specific classes reside in their intended namespaces.
+    /// </summary>
     [Fact]
     public void TestClassTypeLocation()
     {
@@ -152,6 +162,9 @@ public class ArchitectureTest
         Assert.True(controllerInWeb.IsSuccessful);
     }
     
+    /// <summary>
+    /// Tests naming conventions to ensure classes follow standard naming rules.
+    /// </summary>
     [Fact]
     public void TestNamingConventions()
     {
@@ -190,6 +203,9 @@ public class ArchitectureTest
         Assert.True(exceptionNameTest.IsSuccessful);
     }
 
+    /// <summary>
+    /// Tests namespace conventions to ensure classes reside in their intended namespaces.
+    /// </summary>
     [Fact]
     public void TestNameSpaces()
     {
