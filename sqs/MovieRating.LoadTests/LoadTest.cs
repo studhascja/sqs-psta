@@ -21,14 +21,13 @@ public class LoadTest : IClassFixture<TestingWebAppFactory>
         var scenarioMovie = Scenario.Create("Movie_Workload", async _ =>
             {
                 var response = await client.GetAsync("/api/v1/Movie/Godzilla");
-                Console.WriteLine(response.StatusCode + " " + response.ReasonPhrase);
                 return response.IsSuccessStatusCode ? Response.Ok() : Response.Fail();
             })
             .WithoutWarmUp()
             .WithLoadSimulations(
-                Simulation.Inject(rate: 5,
+                Simulation.Inject(rate: 10,
                     interval: TimeSpan.FromSeconds(1),
-                    during: TimeSpan.FromSeconds(2))
+                    during: TimeSpan.FromSeconds(5))
             );
 
         // Act
@@ -58,9 +57,9 @@ public class LoadTest : IClassFixture<TestingWebAppFactory>
             })
             .WithoutWarmUp()
             .WithLoadSimulations(
-                Simulation.Inject(rate: 5,
+                Simulation.Inject(rate: 10,
                     interval: TimeSpan.FromSeconds(1),
-                    during: TimeSpan.FromSeconds(2))
+                    during: TimeSpan.FromSeconds(5))
             );
 
         // Act
