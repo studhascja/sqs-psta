@@ -38,8 +38,9 @@ public class InfoService : IInfoService
             // Convert the MovieDto received from the API to a Movie object
             return ChangeToMovieDto(response!);
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            Console.WriteLine(e);
             throw new NoSuchMovieException("Movie " + title + "does not exist.");
         }
     }
