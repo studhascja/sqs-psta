@@ -9,10 +9,23 @@ jobs:
         uses: actions/setup-dotnet@v4
       - name: Restore dependencies
         run: dotnet restore ./sqs/MovieRating.sln
-      - name: Run Snyk to check for vulnerabilities
+      - name: Run Snyk to check for vulnerabilities on Core
         uses: snyk/actions/dotnet@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --file=sqs/MovieRating.Core/obj/project.assets.json --file=sqs/MovieRating.Infrastructure/obj/project.assets.json --file=sqs/MovieRating.Web/obj/project.assets.json --severity-threshold=high
-
+          args: --file=sqs/MovieRating.Core/obj/project.assets.json
+      - name: Run Snyk to check for vulnerabilities on Infrastructure
+        uses: snyk/actions/dotnet@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+            args: --file=sqs/MovieRating.Infrastructure/obj/project.assets.json --severity-threshold=high
+      - name: Run Snyk to check for vulnerabilities on Web
+        uses: snyk/actions/dotnet@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+            args: --file=sqs/MovieRating.Web/obj/project.assets.json
+                
+          
