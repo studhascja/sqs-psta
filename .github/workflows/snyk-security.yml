@@ -14,5 +14,5 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --file=/sqs/MovieRating.Core/MovieRating.Core.csproj
+          args: --file=/sqs/MovieRating.Core/obj/project.assets.json
 
