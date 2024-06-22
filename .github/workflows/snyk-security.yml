@@ -8,9 +8,9 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
       - name: Restore dependencies
-        run: dotnet restore sqs/MovieRating.sln
+        run: dotnet restore ./sqs/MovieRating.sln
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/dotnet@master --all-projects
+        uses: snyk/actions/dotnet@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
