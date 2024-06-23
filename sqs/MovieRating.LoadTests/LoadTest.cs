@@ -35,9 +35,9 @@ public class LoadTest : IClassFixture<TestingWebAppFactory>
             })
             .WithoutWarmUp()
             .WithLoadSimulations(
-                Simulation.Inject(rate: 50, // 50 Requests per second
-                    interval: TimeSpan.FromSeconds(1), // for 10 seconds
-                    during: TimeSpan.FromSeconds(10))
+                Simulation.Inject(rate: 70, // 70 Requests per second
+                    interval: TimeSpan.FromSeconds(1), // for 60 seconds
+                    during: TimeSpan.FromSeconds(60))
             );
 
         // Act
@@ -70,9 +70,9 @@ public class LoadTest : IClassFixture<TestingWebAppFactory>
             })
             .WithoutWarmUp()
             .WithLoadSimulations(
-                Simulation.Inject(rate: 50, // 50 Requests per second
-                    interval: TimeSpan.FromSeconds(1), // for 10 seconds
-                    during: TimeSpan.FromSeconds(10))
+                Simulation.Inject(rate: 70, // 70 Requests per second
+                    interval: TimeSpan.FromSeconds(1), // for 60 seconds
+                    during: TimeSpan.FromSeconds(60))
             );
 
         // Act
