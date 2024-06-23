@@ -105,8 +105,8 @@ Die Zerlegung des Gesamtsystems bis in die Komponenten Core, Infrastructure und 
 | Exceptions                 | Enthält Exceptions für Programmspezifische Ereignisse                       |
 | Core Models                | Enthält gundlegende Modelle wie Movie und Rating                            |
 | Interfaces                 | Stellt den Bauplan für die Services bereit                                  |
-| DatabaseContext            | Enhält die Datenbankstrukutr                                                |
-| Services                   | Stellen die Daten Move und Rating bereit und speichern sie ab               |
+| DatabaseContext            | Enhält die Datenbankstruktur                                                |
+| Services                   | Stellen die Daten Movie und Rating bereit und speichern sie ab              |
 | Controller                 | Stellen Daten für die Views bereit und updaten diese                        |
 | Web Models                 | Enthält die Datenmodelle für die Kommunikation zwischen Controller und View |
 | View                       | Stellt die UI bereit                                                        |
