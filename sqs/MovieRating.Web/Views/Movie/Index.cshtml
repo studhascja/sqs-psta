@@ -4,7 +4,11 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">@Model.SearchResult.Title</h1>
+    <h1 class="display-4">
+        @{
+            System.Diagnostics.Debug.Assert(Model.SearchResult != null, "Model.SearchResult != null");
+        }
+        @Model.SearchResult.Title</h1>
     
     <p>Description: @Model.SearchResult.Description</p>
     <p>Director: @Model.SearchResult.Director</p>

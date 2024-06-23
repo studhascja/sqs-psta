@@ -6,8 +6,12 @@ using MovieRating.Web.Models;
 
 namespace MovieRating.TestProject.Web.Controller;
 
+/// <summary>
+/// Class <c>RatingControllerTest</c> contains unit tests for the <c>RatingController</c>.
+/// </summary>
 public class RatingControllerTest
 {
+    // Initialize mock services
     private static readonly MovieServiceMock MovieServiceMock = new();
     private static readonly RatingServiceMock RatingServiceMock = new();
     private readonly RatingController _ratingController = new(MovieServiceMock, RatingServiceMock);
@@ -37,11 +41,13 @@ public class RatingControllerTest
         Evaluation = 9
     };
 
+    /// <summary>
+    /// Method <c>AddRatingTest</c> tests the addition of ratings to a movie.
+    /// </summary>
     [Fact]
     public async Task AddRatingTest()
     {
         //Act
-
         await MovieServiceMock.AddMovie(_movie1);
         RatingServiceMock.AddMovie(_movie1);
 
@@ -60,6 +66,9 @@ public class RatingControllerTest
         Assert.Equal(2, countAfterRating2.Count);
     }
 
+    /// <summary>
+    /// Method <c>TestWithoutMovie</c> tests the addition of a rating to a non-existent movie.
+    /// </summary>
     [Fact]
     public async Task TestWithoutMovie()
     {
