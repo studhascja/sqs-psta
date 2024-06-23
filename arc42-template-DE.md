@@ -30,7 +30,7 @@ Die wesentlichen Anforderungen, Ziele und Steakholder werden im Folgenden beschr
 
 - Die funktionalen Anforderungen erfordern die Erfüllung der oben genannten Aufgabenstellungen sowie die Bereitstellung einer REST API, die es ermöglicht, Filmdaten abzurufen und alle in der Datenbank gespeicherten Filme zurückzugeben.
 
-- Die Qualitätsziele der Architektur, die durch die Clean Architecture mit den Schichten Core, Infrastructure und Web erreicht werden sollen, umfassen hohe Wartbarkeit und Erweiterbarkeit des Codes durch klare Trennung der Schichten
+- Die Qualitätsziele der Architektur, die durch die N Layer Architecture mit den Schichten Core, Infrastructure und Web erreicht werden sollen, umfassen hohe Wartbarkeit und Erweiterbarkeit des Codes durch klare Trennung der Schichten
 Testbarkeit und Vermeidung von Abhängigkeiten zwischen den Schichten
 
 - Relevante Stakeholder sind der Endnutzer, der Dozent, der API-Anbieter und der Entwickler. Der Endnutzer erwartet sich von dem Programm eine kontinuierliche Bereitstellung von Funktionalität und Performance. Der Dozent erwartet sich eine vollständige Dokumentation des Projektes und des Codes und die Sicherstellung der Funktionalität und der Qualitätsziele. Der API-Anbieter erwartet eine effiziente Nutzung der OMDb API und eine damit verbundene Minimierung unnötiger Anfragen. Der Entwickler erwartet eine gute Dokumentation und Wartbarkeit des Codes, sowie die Einhaltung der Architekturprinzipien.
@@ -41,19 +41,19 @@ Das Programm soll es ermöglichen, Filme abzurufen und dabei die Eigenschaften T
 
 | Use Case        | Beschreibung        | Ziele |
 |--------------|----------------|-------------------|
-| Film suchen | Ein Film wird mittels seines Titels gesucht | - Bestimmte Daten des Films wiedergeben |
+| Film suchen | Ein Film wird mittels seines Titels gesucht | Bestimmte Daten des Films wiedergeben |
 | Alle in der Datenbank gecachten Filme wiedergeben  | Alle in der Datenbank gecachten Filme wiedergeben  | Alle in der Datenbank gecachten Filme wiedergeben |
 | Rating hinzufügen | Ein Rating zu einem bestimmten Film hinzugefügt | Rating in der Datenbank zu dem entsprechenden Film speichern |
 
 ## Qualitätsziele
 
-| Priorität | Qualitätskriterium | Ziele | Maßnahmen |
-|--------------|----------------|-------------------|-------------------| 
-| 1 | Wartbarkeit | - Lesbarkeit durch gute Strukturierung und klare Namensgebung - Modularität und damit verbundene Ersetzbarkeit - Erweiterbarkeit - Testbarkeit | - Clean Architecture - automatisierte Architekturtests|
-| 2 | Funktionale Eignung | korrekte Funktionalität  | - Unittests - Integrationtests - Testcoverage von über 90% - automatisierte Ausführung der Tests|
-| 3 | Sicherheit | - Vermeiden von Vulnerabillities | - trivy und snyk Dependency und Vulnerabillity Scan|
-| 4 | Zuverlässigkeit | - Verfügbarkeit - Fehlerfreiheit - Wiederherstellbarkeit | - Unittests - Integratiotests - Lasttest - Verwendung von Docker|
-| 5 | Übertragbarkeit | - Plattformunabhängig - Skalierbar | Verwendung von Docker |
+| Priorität | Qualitätskriterium  | Ziele                                                                                                                                                     | Maßnahmen                                                                                                    |
+| --------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| 1         | Wartbarkeit         | - Lesbarkeit durch gute Strukturierung und klare Namensgebung <br>- Modularität und damit verbundene Ersetzbarkeit<br>- Erweiterbarkeit <br>- Testbarkeit | - N Layer Architecture <br>- automatisierte  Architekturtests                                                |
+| 2         | Sicherheit          | Vermeiden von Vulnerabillities                                                                                                                            | trivy und snyk Dependency und Vulnerabillity Scan                                                            |
+| 3         | Funktionale Eignung | korrekte Funktionalität                                                                                                                                   | - Unittests <br>- Integrationtests <br>- Testcoverage von über 90% <br>- automatisierte Ausführung der Tests |
+| 4         | Zuverlässigkeit     | - Verfügbarkeit <br>- Fehlerfreiheit <br>- Wiederherstellbarkeit                                                                                          | - Unittests <br>- Integratiotests <br>- Lasttest <br>- Verwendung von Docker                                 |
+| 5         | Übertragbarkeit     | - Plattformunabhängig <br>- Skalierbar                                                                                                                    | Verwendung von Docker                                                                                        |
 
 ## Stakeholder
 
@@ -67,503 +67,152 @@ Das Programm soll es ermöglichen, Filme abzurufen und dabei die Eigenschaften T
 
 # Randbedingungen
 
-<div class="formalpara-title">
+Die folgenden Randbedingungen sind aus der Aufgabenstellung der Veranstaltung Software Qualitätssicherung (SQS) hervorgegangen.
 
-**Inhalt**
-
-</div>
-
-Randbedingungen und Vorgaben, die ihre Freiheiten bezüglich Entwurf,
-Implementierung oder Ihres Entwicklungsprozesses einschränken. Diese
-Randbedingungen gelten manchmal organisations- oder firmenweit über die
-Grenzen einzelner Systeme hinweg.
-
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
-
-Für eine tragfähige Architektur sollten Sie genau wissen, wo Ihre
-Freiheitsgrade bezüglich der Entwurfsentscheidungen liegen und wo Sie
-Randbedingungen beachten müssen. Sie können Randbedingungen vielleicht
-noch verhandeln, zunächst sind sie aber da.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
-
-Einfache Tabellen der Randbedingungen mit Erläuterungen. Bei Bedarf
-unterscheiden Sie technische, organisatorische und politische
-Randbedingungen oder übergreifende Konventionen (beispielsweise
-Programmier- oder Versionierungsrichtlinien, Dokumentations- oder
-Namenskonvention).
-
-Siehe [Randbedingungen](https://docs.arc42.org/section-2/) in der
-online-Dokumentation (auf Englisch!).
+| Randbedingung             | Beschreibung                                                                                                                        |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Nutzung einer API         | Das Programm muss eine externe API abfragen.                                                                                        |
+| Anbieten einer API        | Das Programm muss eine API bereitstellen, über welche Daten abgefragt werden können.                                                |
+| Nutzung einer Datenbank   | Das Programm muss eine Datenbank benutzen.                                                                                          |
+| Nutzung von Github        | Als Versionskontroll-Plattform muss Github benutzt werden. Wobei das Programm als ein öffentliches Repo bereitgestellt werden muss. |
+| Einbindung von Tests      | Es müssen sowohl Unit-, als auch Intergation Tests benutzt werden.                                                                  |
+| Automatisierung           | Automatisierung mittels CI/CD muss via Github Actions verwendet werden.                                                             |
+| Einbindung von SonarCloud | Für statische Code Analyse muss SonarCloud verwendet werden.                                                                        |
+| Deployment über Docker    | Für das Deployment, muss ein Docker Image bereitgestellt werden.                                                                    |
 
 # Kontextabgrenzung
 
-<div class="formalpara-title">
-
-**Inhalt**
-
-</div>
-
-Die Kontextabgrenzung grenzt das System gegen alle Kommunikationspartner
-(Nachbarsysteme und Benutzerrollen) ab. Sie legt damit die externen
-Schnittstellen fest und zeigt damit auch die Verantwortlichkeit (scope)
-Ihres Systems: Welche Verantwortung trägt das System und welche
-Verantwortung übernehmen die Nachbarsysteme?
-
-Differenzieren Sie fachlichen (Ein- und Ausgaben) und technischen
-Kontext (Kanäle, Protokolle, Hardware), falls nötig.
-
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
-
-Die fachlichen und technischen Schnittstellen zur Kommunikation gehören
-zu den kritischsten Aspekten eines Systems. Stellen Sie sicher, dass Sie
-diese komplett verstanden haben.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
-
-Verschiedene Optionen:
-
--   Diverse Kontextdiagramme
-
--   Listen von Kommunikationsbeziehungen mit deren Schnittstellen
-
-Siehe [Kontextabgrenzung](https://docs.arc42.org/section-3/) in der
-online-Dokumentation (auf Englisch!).
+![Kontextdiagramm](images/Kontextdiagramm.png)
 
 ## Fachlicher Kontext
 
-<div class="formalpara-title">
-
-**Inhalt**
-
-</div>
-
-Festlegung **aller** Kommunikationsbeziehungen (Nutzer, IT-Systeme, …)
-mit Erklärung der fachlichen Ein- und Ausgabedaten oder Schnittstellen.
-Zusätzlich (bei Bedarf) fachliche Datenformate oder Protokolle der
-Kommunikation mit den Nachbarsystemen.
-
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
-
-Alle Beteiligten müssen verstehen, welche fachlichen Informationen mit
-der Umwelt ausgetauscht werden.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
-
-Alle Diagrammarten, die das System als Blackbox darstellen und die
-fachlichen Schnittstellen zu den Nachbarsystemen beschreiben.
-
-Alternativ oder ergänzend können Sie eine Tabelle verwenden. Der Titel
-gibt den Namen Ihres Systems wieder; die drei Spalten sind:
-Kommunikationsbeziehung, Eingabe, Ausgabe.
-
-**\<Diagramm und/oder Tabelle>**
-
-**\<optional: Erläuterung der externen fachlichen Schnittstellen>**
+| Kommunikationsbeziehung      | Eingabe                                         | Ausgabe                            |
+| ---------------------------- | ----------------------------------------------- | ---------------------------------- |
+| User -> MovieRating UI       | Benutzerinteraktion wie Klicks und Texteingaben | Aktualisierte UI                   |
+| Developer -> MovieRating API | Get Request                                     | Gewünschter Movie als Json Objekt  |
+| MovieRating -> OMDb API      | Get Request                                     | Gewünschter Movie als Json Objetkt |
 
 ## Technischer Kontext
 
-<div class="formalpara-title">
-
-**Inhalt**
-
-</div>
-
-Technische Schnittstellen (Kanäle, Übertragungsmedien) zwischen dem
-System und seiner Umwelt. Zusätzlich eine Erklärung (*mapping*), welche
-fachlichen Ein- und Ausgaben über welche technischen Kanäle fließen.
-
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
-
-Viele Stakeholder treffen Architekturentscheidungen auf Basis der
-technischen Schnittstellen des Systems zu seinem Kontext.
-
-Insbesondere bei der Entwicklung von Infrastruktur oder Hardware sind
-diese technischen Schnittstellen durchaus entscheidend.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
-
-Beispielsweise UML Deployment-Diagramme mit den Kanälen zu
-Nachbarsystemen, begleitet von einer Tabelle, die Kanäle auf
-Ein-/Ausgaben abbildet.
-
-**\<Diagramm oder Tabelle>**
-
-**\<optional: Erläuterung der externen technischen Schnittstellen>**
-
-**\<Mapping fachliche auf technische Schnittstellen>**
+![Kontextdiagramm](images/TechnischesKontextDiagramm.png)
 
 # Lösungsstrategie
 
-<div class="formalpara-title">
-
-**Inhalt**
-
-</div>
-
-Kurzer Überblick über die grundlegenden Entscheidungen und
-Lösungsansätze, die Entwurf und Implementierung des Systems prägen.
-Hierzu gehören:
-
--   Technologieentscheidungen
-
--   Entscheidungen über die Top-Level-Zerlegung des Systems,
-    beispielsweise die Verwendung gesamthaft prägender Entwurfs- oder
-    Architekturmuster,
-
--   Entscheidungen zur Erreichung der wichtigsten Qualitätsanforderungen
-    sowie
-
--   relevante organisatorische Entscheidungen, beispielsweise für
-    bestimmte Entwicklungsprozesse oder Delegation bestimmter Aufgaben
-    an andere Stakeholder.
-
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
-
-Diese wichtigen Entscheidungen bilden wesentliche „Eckpfeiler“ der
-Architektur. Von ihnen hängen viele weitere Entscheidungen oder
-Implementierungsregeln ab.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
-
-Fassen Sie die zentralen Entwurfsentscheidungen **kurz** zusammen.
-Motivieren Sie, ausgehend von Aufgabenstellung, Qualitätszielen und
-Randbedingungen, was Sie entschieden haben und warum Sie so entschieden
-haben. Vermeiden Sie redundante Beschreibungen und verweisen Sie eher
-auf weitere Ausführungen in Folgeabschnitten.
-
-Siehe [Lösungsstrategie](https://docs.arc42.org/section-4/) in der
-online-Dokumentation (auf Englisch!).
+- Nutzung der Programmiersprache C#, da sie dem Entwickler bekannt ist und somit keine Einarbeitungszeit notwendig ist
+- Nutzung der N-Layer Architektur um Modularität zu gewährleisten
+- Explizite Architekturtests um sicherstellen zu können, dass die Architektur eingehlaten wurde
+- Automatisierte Unit und Integration Tests um dauerhaft die Funktionalität der MovieRating Webanwendung sicherstellen zu können.
 
 # Bausteinsicht
-
-<div class="formalpara-title">
-
-**Inhalt**
-
-</div>
-
-Die Bausteinsicht zeigt die statische Zerlegung des Systems in Bausteine
-(Module, Komponenten, Subsysteme, Klassen, Schnittstellen, Pakete,
-Bibliotheken, Frameworks, Schichten, Partitionen, Tiers, Funktionen,
-Makros, Operationen, Datenstrukturen, …) sowie deren Abhängigkeiten
-(Beziehungen, Assoziationen, …)
-
-Diese Sicht sollte in jeder Architekturdokumentation vorhanden sein. In
-der Analogie zum Hausbau bildet die Bausteinsicht den *Grundrissplan*.
-
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
-
-Behalten Sie den Überblick über den Quellcode, indem Sie die statische
-Struktur des Systems durch Abstraktion verständlich machen.
-
-Damit ermöglichen Sie Kommunikation auf abstrakterer Ebene, ohne zu
-viele Implementierungsdetails offenlegen zu müssen.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
-
-Die Bausteinsicht ist eine hierarchische Sammlung von Blackboxen und
-Whiteboxen (siehe Abbildung unten) und deren Beschreibungen.
-
-![Hierarchie in der Bausteinsicht](images/05_building_blocks-DE.png)
-
-**Ebene 1** ist die Whitebox-Beschreibung des Gesamtsystems, zusammen
-mit Blackbox-Beschreibungen der darin enthaltenen Bausteine.
-
-**Ebene 2** zoomt in einige Bausteine der Ebene 1 hinein. Sie enthält
-somit die Whitebox-Beschreibungen ausgewählter Bausteine der Ebene 1,
-jeweils zusammen mit Blackbox-Beschreibungen darin enthaltener
-Bausteine.
-
-**Ebene 3** zoomt in einige Bausteine der Ebene 2 hinein, usw.
-
-Siehe [Bausteinsicht](https://docs.arc42.org/section-5/) in der
-online-Dokumentation (auf Englisch!).
-
 ## Whitebox Gesamtsystem
 
-An dieser Stelle beschreiben Sie die Zerlegung des Gesamtsystems anhand
-des nachfolgenden Whitebox-Templates. Dieses enthält:
+![Whitebox Overall System](images/Bausteinsicht.png)
+### Begründung
 
--   Ein Übersichtsdiagramm
+Die Zerlegung des Gesamtsystems bis in die Komponenten Core, Infrastructure und Web ermöglicht die isolierte Ansicht der Verantwortungsbereiche der einzelnen Architekturkomponenten. Dies gibt einen guten Überblick über die Struktur des Programms und erleichtert somit die Orientierung und damit die Wartung des Programms.
 
--   die Begründung dieser Zerlegung
+### Enthaltene Bausteine
 
--   Blackbox-Beschreibungen der hier enthaltenen Bausteine. Dafür haben
-    Sie verschiedene Optionen:
+| Baustein                   | Verantwortung                                                               |
+| -------------------------- | --------------------------------------------------------------------------- |
+| MovieRating Webapplication | Gesamte Programlogik                                                        |
+| Core                       | Bereitstellen der grundlegenden Modelle und Interfaces                      |
+| Infrastructure             | Bereitstellen der Daten                                                     |
+| Web                        | Bereitstellen der UI und der API                                            |
+| Datenbank                  | Speicherung der Daten                                                       |
+| Exceptions                 | Enthält Exceptions für Programmspezifische Ereignisse                       |
+| Core Models                | Enthält gundlegende Modelle wie Movie und Rating                            |
+| Interfaces                 | Stellt den Bauplan für die Services bereit                                  |
+| DatabaseContext            | Enhält die Datenbankstrukutr                                                |
+| Services                   | Stellen die Daten Move und Rating bereit und speichern sie ab               |
+| Controller                 | Stellen Daten für die Views bereit und updaten diese                        |
+| Web Models                 | Enthält die Datenmodelle für die Kommunikation zwischen Controller und View |
+| View                       | Stellt die UI bereit                                                        |
 
-    -   in *einer* Tabelle, gibt einen kurzen und pragmatischen
-        Überblick über die enthaltenen Bausteine sowie deren
-        Schnittstellen.
+### Wichtige Schnittstellen
 
-    -   als Liste von Blackbox-Beschreibungen der Bausteine, gemäß dem
-        Blackbox-Template (siehe unten). Diese Liste können Sie, je nach
-        Werkzeug, etwa in Form von Unterkapiteln (Text), Unter-Seiten
-        (Wiki) oder geschachtelten Elementen (Modellierungswerkzeug)
-        darstellen.
+- HTTP: Interaktion zwischen Nutzer und Programm
+- REST: Interaktion zwischen Entwickler und Movie API, sowie zwischen MovieRating Webanwendung und OMDb API
 
--   (optional:) wichtige Schnittstellen, die nicht bereits im
-    Blackbox-Template eines der Bausteine erläutert werden, aber für das
-    Verständnis der Whitebox von zentraler Bedeutung sind. Aufgrund der
-    vielfältigen Möglichkeiten oder Ausprägungen von Schnittstellen
-    geben wir hierzu kein weiteres Template vor. Im schlimmsten Fall
-    müssen Sie Syntax, Semantik, Protokolle, Fehlerverhalten,
-    Restriktionen, Versionen, Qualitätseigenschaften, notwendige
-    Kompatibilitäten und vieles mehr spezifizieren oder beschreiben. Im
-    besten Fall kommen Sie mit Beispielen oder einfachen Signaturen
-    zurecht.
+### Blackbox-Beschreibung Level 1
 
-***\<Übersichtsdiagramm>***
+#### Core
+ - Zweck/Verantwortung: Enthält alle Komponenten welche keine Abhängigkeiten besitzen und wiederverwendet werden
+ - Schnittstellen: /
+ - Qualitätsmerkmale: Core darf keine Abhängigkeiten besitzen und hat somit Qualitätsmerkmale an die Architektur
 
-Begründung  
-*\<Erläuternder Text>*
+#### Infrastructure
+ - Zweck/Verantwortung: Bereitstellen und Verwaltung von Daten, dies umfasst das Lesen und Schreiben in die Datenbank, als auch das Holen der Movie Daten von der OMDb API.
+ - Schnittstellen: REST Schnittstelle zu der OMDb API
+ - Qualitätsmerkmale: Funktionale Eignung und Sicherheit (keine Technologien mit bekannten Vulnerabillites benutzen)
 
-Enthaltene Bausteine  
-*\<Beschreibung der enthaltenen Bausteine (Blackboxen)>*
+ #### Web
+ - Zweck/Verantwortung: Bereitstellen der der UIs und der API
+ - Schnittstellen: bietet zwei REST Endpunkte an (API)
+ - Qualitätsmerkmale: funktionale Eignung, Sicherheit (keine Technologien mit bekannten Vulnerabillites benutzen) und Belastbarkeit (API)
 
-Wichtige Schnittstellen  
-*\<Beschreibung wichtiger Schnittstellen>*
+Die Datenbank wird nicht weiter als Blackbox beschrieben, da sie weder Schnittstellen noch besondere Qualitätsmerkmale besitzt.
 
-Hier folgen jetzt Erläuterungen zu Blackboxen der Ebene 1.
+Die Blackboxes in Level 2 werden ebenfalls nicht weiter beschrieben da ihre Schnittstellen und Qualitätsmerkmale mit den zuvor genannten übereinstimmen. Zudem wird auf die Blackboxes in Level 2 im folgenden Kapitel, in welchem auf dei Whiteboxes genauger eingegangen wird, erklärt.
 
-Falls Sie die tabellarische Beschreibung wählen, so werden Blackboxen
-darin nur mit Name und Verantwortung nach folgendem Muster beschrieben:
+### Level 2 Whiteboxes
 
-| **Name**        | **Verantwortung** |
-|-----------------|-------------------|
-| *\<Blackbox 1>* |  *\<Text>*        |
-| *\<Blackbox 2>* |  *\<Text>*        |
+#### Core
+- Innere Bausteine: Interfaces, Exceptions, Models
+- Beschreibung: Die Core Komponenten stellen den Kern des Programms dar. Alle Strukturen, welche keine Abhängigkeiten haben und an mehreren Stellen verwendet werden, befinden sich in Core. 
+    - Exceptions: Umfasst Exceptions für besondere Fälle, wie zum Beispiel, wenn der Film in der OMDb Datenbank nicht existiert, oder wenn Umgebungsvariablen nicht gesetzt wurden.
+    - Models: Umfasst die Grundstruktur für Objekte Movie und Rating, beinhaltet aber ebenfalls das MovieDTO Objekt, mit welchem die Daten von der OMDb API in ein Movie Objekt umgewandelt werden können. 
+    - Interfaces: Enthält Baupläne für alle Services in Infrastructure. Darunter beispielsweise um die OMDb API anzusprechen oder alle Ratings zu einem Movie zu erhalten.
 
-Falls Sie die ausführliche Liste von Blackbox-Beschreibungen wählen,
-beschreiben Sie jede wichtige Blackbox in einem eigenen
-Blackbox-Template. Dessen Überschrift ist jeweils der Namen dieser
-Blackbox.
+#### Infrastructure
+- Innere Bausteine: DatabseContext, Services
+- Beschreibung: Alle Infrastructure Komponenten dienen der Kommunikation mit der Datenbank oder Verwaltung von Movie und Rating Objekten, mittels der Datenbank oder der OMDb API.
+    - DatabaseContext: Enthält die Datenbank Enitäten Movie und Rating und gibt damit die Struktur der Datenbank vor
+    - Services: 
+        - ConfigService: Über diese Service können die Umgebungsvariablen konfiguriert werden
+        - InfoService: über diesen Service wird ein Movie von der OMDb API geholt
+        - MovieService: Über diesen Service werden die Movies verwaltet. Dies beeinhaltet unteranderem das Hinzufügen und das Auslesen eines Movies aus der Datenbank
+        - Rating Service: Über diesen Service werden die Ratings verwaltet. Dies beeinhaltet unteranderem das Hinzufügen und das Auslesen eines Ratings aus der Datenbank
 
-### \<Name Blackbox 1>
-
-Beschreiben Sie die \<Blackbox 1> anhand des folgenden
-Blackbox-Templates:
-
--   Zweck/Verantwortung
-
--   Schnittstelle(n), sofern diese nicht als eigenständige
-    Beschreibungen herausgezogen sind. Hierzu gehören eventuell auch
-    Qualitäts- und Leistungsmerkmale dieser Schnittstelle.
-
--   (Optional) Qualitäts-/Leistungsmerkmale der Blackbox, beispielsweise
-    Verfügbarkeit, Laufzeitverhalten o. Ä.
-
--   (Optional) Ablageort/Datei(en)
-
--   (Optional) Erfüllte Anforderungen, falls Sie Traceability zu
-    Anforderungen benötigen.
-
--   (Optional) Offene Punkte/Probleme/Risiken
-
-*\<Zweck/Verantwortung>*
-
-*\<Schnittstelle(n)>*
-
-*\<(Optional) Qualitäts-/Leistungsmerkmale>*
-
-*\<(Optional) Ablageort/Datei(en)>*
-
-*\<(Optional) Erfüllte Anforderungen>*
-
-*\<(optional) Offene Punkte/Probleme/Risiken>*
-
-### \<Name Blackbox 2>
-
-*\<Blackbox-Template>*
-
-### \<Name Blackbox n>
-
-*\<Blackbox-Template>*
-
-### \<Name Schnittstelle 1>
-
-…
-
-### \<Name Schnittstelle m>
-
-## Ebene 2
-
-Beschreiben Sie den inneren Aufbau (einiger) Bausteine aus Ebene 1 als
-Whitebox.
-
-Welche Bausteine Ihres Systems Sie hier beschreiben, müssen Sie selbst
-entscheiden. Bitte stellen Sie dabei Relevanz vor Vollständigkeit.
-Skizzieren Sie wichtige, überraschende, riskante, komplexe oder
-besonders volatile Bausteine. Normale, einfache oder standardisierte
-Teile sollten Sie weglassen.
-
-### Whitebox *\<Baustein 1>*
-
-…zeigt das Innenleben von *Baustein 1*.
-
-*\<Whitebox-Template>*
-
-### Whitebox *\<Baustein 2>*
-
-*\<Whitebox-Template>*
-
-…
-
-### Whitebox *\<Baustein m>*
-
-*\<Whitebox-Template>*
-
-## Ebene 3
-
-Beschreiben Sie den inneren Aufbau (einiger) Bausteine aus Ebene 2 als
-Whitebox.
-
-Bei tieferen Gliederungen der Architektur kopieren Sie diesen Teil von
-arc42 für die weiteren Ebenen.
-
-### Whitebox \<\_Baustein x.1\_\>
-
-…zeigt das Innenleben von *Baustein x.1*.
-
-*\<Whitebox-Template>*
-
-### Whitebox \<\_Baustein x.2\_\>
-
-*\<Whitebox-Template>*
-
-### Whitebox \<\_Baustein y.1\_\>
-
-*\<Whitebox-Template>*
+#### Web
+- Innere Bausteine: Controller, Model, View
+- Beschreibung: Alle Web Komponenten dienen der Nutzer Interaktion, entweder über die bereitgestellten Webseiten oder die API. 
+    - Controller: Die Controller reagieren auf Nutzereingaben in den entsprechenden Views und beschaffen die angeforderten Daten, um die Ansicht anschließend zu aktualisieren. Ein Beispiel dafür ist der MovieController, der aktiv wird, sobald der Nutzer nach einem bestimmten Film sucht. Der MovieController nutzt die in der Infrastruktur bereitgestellten Services, um nach dem Film zu suchen, und aktualisiert die Ansicht mit den gefundenen Daten.
+    - Model: Die Models dienen als Zwischenschicht zwischen der Logik in den Controllern und der Benutzeroberfläche in den Views. Die vom Controller aktualisierten Daten werden im entsprechenden Model gespeichert. Das Model wird in der View ausgelesen, wodurch die Ansicht auf der Webseite aktualisiert und die neuesten Daten angezeigt werden können.
+    - View: Die Views dienen der Bereitstellung der Webseiten und sind in HTML geschrieben. Über die Views kann der Benutzer mit der Anwendung interagieren. Die Views werden von den Controllern aktualisiert, um die Benutzeroberfläche mit den neuesten Daten und Informationen zu versorgen.
 
 # Laufzeitsicht
 
-<div class="formalpara-title">
+## Movie not in Cache
 
-**Inhalt**
+![Movie Not In Cache](images/MovieNotInCache.png)
 
-</div>
+- Zuerst wird geprüft ob sich der Film im Cache befindet
+- Falls dies nicht der Fall ist wird er von der OMDb API geholt 
+- Damit er beim nächsten Mal direkt aus dem Cache geholt werden kann wird er in die Datenbank gespeichert
+- Je nachdem ob der Request von der API oder der UI kam, wird entweder der Movie als Json Objekt zurück geliefert oder der User auf die Seite mit den Filmdetails weitergeleitet
+## Movie in Cache
 
-Diese Sicht erklärt konkrete Abläufe und Beziehungen zwischen Bausteinen
-in Form von Szenarien aus den folgenden Bereichen:
+![Movie In Cache](images/MovieInCache.png)
 
--   Wichtige Abläufe oder *Features*: Wie führen die Bausteine der
-    Architektur die wichtigsten Abläufe durch?
+- Selbes Prinzip wie in "Movie not in Cache" 
+- Mit dem Unterschied das der Film im Cache gefunden wird und somit direkt zurückgegeben werden kann
+## Unkown Movie
 
--   Interaktionen an kritischen externen Schnittstellen: Wie arbeiten
-    Bausteine mit Nutzern und Nachbarsystemen zusammen?
+![Unknown Movie](images/UnknownMovie.png)
 
--   Betrieb und Administration: Inbetriebnahme, Start, Stop.
+- Wenn der Film nicht existiert, befindet er sich weder im Cache, noch kann er über die OMDb API gefunden werden
+- Dabei wirft der InfoService in Infrastructure eine Exception
+- Diese wird im Controller in Web aufgefangen und ein 404 zurückgegeben
+## Create Rating
 
--   Fehler- und Ausnahmeszenarien
+![[CreateRating.png]]
 
-Anmerkung: Das Kriterium für die Auswahl der möglichen Szenarien (d.h.
-Abläufe) des Systems ist deren Architekturrelevanz. Es geht nicht darum,
-möglichst viele Abläufe darzustellen, sondern eine angemessene Auswahl
-zu dokumentieren.
-
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
-
-Sie sollten verstehen, wie (Instanzen von) Bausteine(n) Ihres Systems
-ihre jeweiligen Aufgaben erfüllen und zur Laufzeit miteinander
-kommunizieren.
-
-Nutzen Sie diese Szenarien in der Dokumentation hauptsächlich für eine
-verständlichere Kommunikation mit denjenigen Stakeholdern, die die
-statischen Modelle (z.B. Bausteinsicht, Verteilungssicht) weniger
-verständlich finden.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
-
-Für die Beschreibung von Szenarien gibt es zahlreiche
-Ausdrucksmöglichkeiten. Nutzen Sie beispielsweise:
-
--   Nummerierte Schrittfolgen oder Aufzählungen in Umgangssprache
-
--   Aktivitäts- oder Flussdiagramme
-
--   Sequenzdiagramme
-
--   BPMN (Geschäftsprozessmodell und -notation) oder EPKs
-    (Ereignis-Prozessketten)
-
--   Zustandsautomaten
-
--   …
-
-Siehe [Laufzeitsicht](https://docs.arc42.org/section-6/) in der
-online-Dokumentation (auf Englisch!).
-
-## *\<Bezeichnung Laufzeitszenario 1>*
-
--   \<hier Laufzeitdiagramm oder Ablaufbeschreibung einfügen>
-
--   \<hier Besonderheiten bei dem Zusammenspiel der Bausteine in diesem
-    Szenario erläutern>
-
-## *\<Bezeichnung Laufzeitszenario 2>*
-
-…
-
-## *\<Bezeichnung Laufzeitszenario n>*
-
-…
-
+- Wenn ein Rating erstellt werden soll, wird zunächst überprüft ob sich der Film im Cache befindet
+- Falls dies der Fall ist wird er aus der Datenbank geladen und mit dem Rating verknüpft
+- Das Rating wird anschließend in die Datenbank gespeichert und der Nutzer auf die Movie Seite weitergeleitet, auf welcher die Filmdetails und die entsprechenden Ratings gelistet sind
+- Falls sich der Film nicht in der Datenbank befinden sollte, wird ein 404 zurückgegeben
+- Die Rating können nur über die UI hinzugefügt werden, über die API ist nur das Auslesen möglich
 # Verteilungssicht
 
 <div class="formalpara-title">
