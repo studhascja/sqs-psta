@@ -12,9 +12,9 @@
     
     <hr>
     <ul>
-        @foreach (var movie in Model.SavedMovies)
+        @foreach (var movie in Model.SavedMovies.Select(movie => movie.Title))
         {
-            <li><a href="Movie?title=@movie.Title">@movie.Title</a></li>
+            <li><a href="Movie?title=@movie">@movie</a></li>
         }
     </ul>
 </div>
